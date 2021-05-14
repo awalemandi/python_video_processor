@@ -1,14 +1,7 @@
+from sys import argv
 import cv2 as cv
 
-# standard resolutions:
-# 240p = 352 x 240
-# 360 p = 480 x 360
-# 480p = 858 x 480
-# 720p = 1280 x 720
-# 1080p = 1920 x 1080
-# 2160p = 3860 x 2160
-
-def playback(video_file_path: str, fps: int, width: int, height: int, monochrome = False):
+def playback(video_file_path: str, fps: int, width: int, height: int, monochrome: bool):
 
     #capture frames from video source
     capture = cv.VideoCapture(video_file_path)
@@ -40,4 +33,28 @@ def playback(video_file_path: str, fps: int, width: int, height: int, monochrome
     capture.release()
     cv.destroyAllWindows()
 
-playback('videos/coffee.mp4', 60, 1920, 1080, False)
+#script with input prompt
+def playback_input():
+    video_source = input('Video source: ')
+    fps = input('FPS: ')
+    width = input('Video width: ')
+    height = input('Video height: ')
+    gray = input('Monochrome (y or n): ')
+    if gray == 'y' or 'Y':
+        monochrome = True
+    if gray == 'n' or 'N':
+        monochrome = False
+    playback(video_source, int(fps), int(width), int(height), monochrome)
+
+def main():
+    if len(argv) == 1:
+        playback_input()
+
+    if len(argv) >1 and len(argv) != 6:
+        print('Usage: python3 -m playback_script.py [video source] [fps] [width] [height] [monochrome]')
+        exit()
+
+    else:
+        playback(argv[1], int(argv[2]), int(argv[3]), int(argv[4]), argv[5])
+
+if __name__ == '__main__': main()
