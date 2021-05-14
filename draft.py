@@ -10,6 +10,11 @@ capture = cv.VideoCapture('videos/video_1.mp4')
 fps=10
 frame_delay = int(1000/fps)
 
+# only works for live video source
+# def changeRes(width, height):
+#     capture.set(3, width)
+#     capture.set(4, height)
+
 
 while True:
     prev_frame = frame[:]
