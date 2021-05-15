@@ -55,6 +55,6 @@ def main():
         exit()
 
     else:
-        playback(argv[1], int(argv[2]), int(argv[3]), int(argv[4]), argv[5])
+        playback(argv[1], int(argv[2]), int(argv[3]), int(argv[4]), eval(argv[5]))
 
 if __name__ == '__main__': main()
