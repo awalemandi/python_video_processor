@@ -1,8 +1,10 @@
 import cv2 as cv
 import numpy as np
+from pathlib import Path
 
 
 file_path = "videos/video_1.mp4"
+processed_name = Path(file_path).stem +'_processed'
 fps = 20
 res = (400, 240)
 
@@ -10,7 +12,7 @@ cap = cv.VideoCapture(file_path)
 first_iter = True
 
 fourcc = cv.VideoWriter_fourcc(*'MP4V')
-out = cv.VideoWriter('processed.mp4', fourcc, fps, res)
+out = cv.VideoWriter(f'{processed_name}.mp4', fourcc, fps, res)
 
 while True:
     ret, frame = cap.read()
