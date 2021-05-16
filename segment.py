@@ -1,10 +1,15 @@
 import cv2 as cv
 import numpy as np
 
+
+
 file_path = "videos/video_1.mp4"
 
 cap = cv.VideoCapture(file_path)
 first_iter = True
+
+fourcc = cv.VideoWriter_fourcc(*'MP4V')
+out = cv.VideoWriter('processed.mp4', fourcc, 20.0, (400, 240))
 
 while True:
     ret, frame = cap.read()
@@ -19,15 +24,15 @@ while True:
 
     mask = cv.bitwise_xor(frame, background)
 
-    segment = background - frame
+    segment = cv.absdiff(frame, background)
 
-    masked_result = cv.bitwise_and(segment, mask)
+    result = cv.bitwise_and(segment, frame)
 
+    #Write result frame to output video
+    out.write(result)
 
-    cv.imshow('input', frame)
-    cv.imshow('result', masked_result)
-
-    # cv.imwrite("results/result.mp4", result)
+    # cv.imshow('input', frame)
+    # cv.imshow('result', result)
 
     #Check for keypress every frame_delay duration
     key = cv.waitKey(1)
@@ -38,4 +43,5 @@ while True:
 
 # When everything done, release the capture
 cap.release()
+out.release()
 cv.destroyAllWindows()

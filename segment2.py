@@ -17,7 +17,7 @@ while True:
 
     background = cv.convertScaleAbs(avg)
 
-    result = background - frame
+    result = cv.absdiff(frame, background)
 
     cv.imshow('input', frame)
     cv.imshow('result', result)
